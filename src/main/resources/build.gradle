@@ -1,0 +1,19 @@
+import java.time.LocalDateTime
+
+task generateAuthorsAndBooks() {
+    doLast {
+        File dataSql = file("data.sql")
+        dataSql.write("")
+        //Authors
+        for (int i = 0; i <= 100; ++i) {
+            dataSql.append("INSERT INTO AUTHOR (id, name, surname, description, born_date) values(${i}, 'Author name: ${i}','Author surname: ${i}','Author description: ${i}','"
+                    + LocalDateTime.now().minusDays(1000 - i) + "');\n")
+        }
+        //Books
+        for (int i = 0; i <= 100; ++i) {
+            int author_id = i / 10;
+            dataSql.append("INSERT INTO BOOK (id, author_id, title, description, release_date) values(${i},${author_id}, 'Book title: ${i}','Book description: ${i}','"
+                    + LocalDateTime.now().minusDays(1000 - i) + "');\n")
+        }
+    }
+}
