@@ -13,4 +13,5 @@ public class Library {
     @Id
     private long id;
     private String libraryName;
+    private String libraryDetails;
 }
