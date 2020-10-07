@@ -20,6 +20,11 @@ public class AuthorController {
         return authorService.getAuthors();
     }
 
+    @GetMapping("/authors/{surname}")
+    public List<Author> getAuthors(@PathVariable String surname){
+        return authorService.getAuthors(surname);
+    }
+
     @GetMapping("/author/{id}")
     public Author getAuthor(@PathVariable long id){
         return authorService.getAuthor(id);

@@ -8,7 +8,7 @@ CREATE TABLE AUTHOR(
 
 CREATE TABLE BOOK(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    author_id BIGINT,
+    author_id BIGINT NOT NULL,
     title VARCHAR(150) NOT NULL,
     description VARCHAR(2000) NULL,
     release_date timestamp
@@ -16,4 +16,4 @@ CREATE TABLE BOOK(
 
 ALTER TABLE BOOK
     ADD CONSTRAINT book_author_id
-    FOREIGN KEY (author_id) REFERENCES AUTHOR(id);
+    FOREIGN KEY (author_id) REFERENCES AUTHOR(id)

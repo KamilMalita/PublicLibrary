@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 public class Book {
     @Id
     private long id;
-    private long authorId;
     private String title;
     private String description;
     private LocalDateTime releaseDate;

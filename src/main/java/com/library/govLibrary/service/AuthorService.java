@@ -14,7 +14,11 @@ public class AuthorService {
     private final AuthorRepository authorRepository;
 
     public List<Author> getAuthors(){
-        return authorRepository.findAll();
+        return authorRepository.findAllAuhors();
+    }
+
+    public List<Author> getAuthors(String surname){
+        return authorRepository.findAllBySurname(surname);
     }
 
     public Author getAuthor(long id){
