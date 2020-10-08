@@ -1,10 +1,12 @@
 package com.library.govLibrary.controller;
 
+import com.library.govLibrary.controller.dto.AuthorDto;
 import com.library.govLibrary.model.Author;
 import com.library.govLibrary.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,8 +18,9 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @GetMapping("/authors")
-    public List<Author> getAuthors(){
-        return authorService.getAuthors();
+    public List<AuthorDto> getAuthors(@RequestParam(required = false) int page){
+        int pageNum = page > 0? page: 1;
+        return AuthorDto.mapToDtos(authorService.getAuthors(pageNum - 1));
     }
 
     @GetMapping("/authors/{surname}")
