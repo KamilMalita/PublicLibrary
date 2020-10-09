@@ -23,7 +23,11 @@ public class AuthorService {
         return authorRepository.findAllAuthorsBySurname(surname);
     }
 
-    public Author getAuthor(long id){
-        return authorRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public Author getAuthorWithBooks(long id){
+        return authorRepository.findByIdWithBooks(id).orElseThrow(NoSuchElementException::new);
+    }
+
+    public Author getAuthor(long id) {
+        return authorRepository.findById(id).orElseThrow();
     }
 }

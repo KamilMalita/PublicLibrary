@@ -22,7 +22,7 @@ public class AuthorDto {
         return authors.stream().map(AuthorDto::mapToDto).collect(Collectors.toList());
     }
 
-    private static AuthorDto mapToDto(Author author) {
+    public static AuthorDto mapToDto(Author author) {
         return AuthorDto.builder()
                 .bornDate(author.getBornDate())
                 .description(author.getDescription())

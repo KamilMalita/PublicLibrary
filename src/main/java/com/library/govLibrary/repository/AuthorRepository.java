@@ -19,6 +19,9 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     @Query("select a from Author a")
     List<Author> findAllAuthors(Pageable page);
 
-    @Query("select a from Author a left join fetch a.book where a.id = :id")
+    @Query("select distinct a from Author a left join fetch a.book where a.id = :id")
+    Optional<Author> findByIdWithBooks(long id);
+
+    @Query("select distinct a from Author a where a.id = :id")
     Optional<Author> findById(long id);
 }

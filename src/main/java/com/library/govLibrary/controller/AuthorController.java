@@ -28,8 +28,13 @@ public class AuthorController {
         return authorService.getAuthors(surname);
     }
 
+    @GetMapping("/author/{id}/book")
+    public Author getAuthorWithBooks(@PathVariable long id){
+        return authorService.getAuthorWithBooks(id);
+    }
+
     @GetMapping("/author/{id}")
-    public Author getAuthor(@PathVariable long id){
-        return authorService.getAuthor(id);
+    public AuthorDto getAuthor(@PathVariable long id){
+        return AuthorDto.mapToDto(authorService.getAuthor(id));
     }
 }

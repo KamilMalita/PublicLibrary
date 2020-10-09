@@ -22,6 +22,6 @@ public class Author {
     private LocalDateTime bornDate;
 
     @OneToMany
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "authorId")
     private List<Book> book;
 }
