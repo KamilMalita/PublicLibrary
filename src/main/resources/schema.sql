@@ -14,6 +14,13 @@ CREATE TABLE BOOK(
     release_date timestamp
 );
 
+CREATE TABLE ADDRESS(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY ,
+    town VARCHAR(100) NOT NULL,
+    street VARCHAR(150) NOT NULL,
+    postal_code VARCHAR(2000) NULL
+);
+
 ALTER TABLE BOOK
     ADD CONSTRAINT book_author_id
     FOREIGN KEY (author_id) REFERENCES AUTHOR(id)
