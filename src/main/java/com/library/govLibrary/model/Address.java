@@ -1,6 +1,7 @@
 package com.library.govLibrary.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 public class Address {
     @Id
     private long id;
