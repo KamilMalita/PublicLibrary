@@ -12,6 +12,7 @@ import javax.persistence.Id;
 public class Library {
     @Id
     private long id;
+    private long addressId;
     private String libraryName;
     private String libraryDetails;
 }
