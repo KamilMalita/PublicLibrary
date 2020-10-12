@@ -23,9 +23,15 @@ public class AuthorController {
         return AuthorDto.mapToDtos(authorService.getAuthors(pageNum - 1));
     }
 
+    @GetMapping("/authors/comments")
+    public List<Author> getAuthorsWithBooks(@RequestParam(required = false) int page){
+        int pageNum = page > 0? page: 1;
+        return authorService.getAuthorsWithBooks(pageNum - 1);
+    }
+
     @GetMapping("/authors/{surname}")
     public List<Author> getAuthors(@PathVariable String surname){
-        return authorService.getAuthors(surname);
+        return authorService.getAuthorsWithSurname(surname);
     }
 
     @GetMapping("/author/{id}/book")
