@@ -15,5 +15,15 @@ task generateAuthorsAndBooks() {
             dataSql.append("INSERT INTO BOOK (id, author_id, title, description, release_date) values(${i},${author_id}, 'Book title: ${i}','Book description: ${i}','"
                     + LocalDateTime.now().minusDays(1000 - i) + "');\n")
         }
+        //Address
+        for (int i = 0; i <= 100; ++i) {
+            int postalCode = i/10;
+            dataSql.append("INSERT INTO ADDRESS (id, town, street, postal_code) values(${i},'Town Name: ${i}', 'Street name: ${i}','Postal Code: ${postalCode}${postalCode}-${postalCode}${postalCode}${postalCode}');\n")
+        }
+        //Library
+        for (int i = 0; i <= 100; ++i) {
+            int address_id = i / 10;
+            dataSql.append("INSERT INTO LIBRARY (id, address_id, library_name, library_details) values(${i},${address_id}, 'Library name: ${i}','Library details: ${i}');\n")
+        }
     }
 }
