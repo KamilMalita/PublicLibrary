@@ -16,8 +16,9 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/books")
-    public List<Book> getAuthors(@RequestParam int page) {
-        return bookService.getBooks(page);
+    public List<Book> getBooks(@RequestParam(required = false) Integer page) {
+        int pageNum = page != null && page > 1 ? page : 1;
+        return bookService.getBooks(pageNum);
     }
 
     @GetMapping("/book/{id}")
@@ -31,7 +32,7 @@ public class BookController {
     }
 
     @GetMapping("/books/{title}")
-    public List<Book> getBooksContainTitle(@PathVariable String title){
+    public List<Book> getBooksContainTitle(@PathVariable String title) {
         return bookService.getBooksContainTitle(title);
     }
 }

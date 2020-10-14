@@ -16,8 +16,7 @@ public class BookService {
     private final BookRepository bookRepository;
 
     public List<Book> getBooks(int page) {
-        int pageNum = page > 0 ? page : 1;
-        return bookRepository.findAllBooks(PageRequest.of(pageNum - 1, SIZE));
+        return bookRepository.findAllBooks(PageRequest.of(page, SIZE));
     }
 
     public List<Book> getBooksContainTitle(String title) {

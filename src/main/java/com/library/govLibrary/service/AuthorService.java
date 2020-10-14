@@ -6,6 +6,7 @@ import com.library.govLibrary.repository.AuthorRepository;
 import com.library.govLibrary.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,16 +16,16 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class AuthorService {
-    public static final int SIZE = 20;
+    private static final int SIZE = 20;
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
 
-    public List<Author> getAuthors(int page){
-        return authorRepository.findAllAuthors(PageRequest.of(page, SIZE));
+    public List<Author> getAuthors(int page, Sort.Direction sort){
+        return authorRepository.findAllAuthors(PageRequest.of(page, SIZE, sort, "surname", "name"));
     }
 
-    public List<Author> getAuthorsWithBooks(int page){
-        List<Author> authorList = authorRepository.findAllAuthors(PageRequest.of(page, SIZE));
+    public List<Author> getAuthorsWithBooks(int page, Sort.Direction sort){
+        List<Author> authorList = authorRepository.findAllAuthors(PageRequest.of(page, SIZE, sort, "surname", "name"));
         List<Long> listAuthorId = authorList.stream().map(Author::getId).collect(Collectors.toList());
         List<Book> bookList = bookRepository.findAllByAuthorIdIn(listAuthorId);
         authorList.forEach(author -> author.setBook(extractBooks(bookList, author.getId())));
