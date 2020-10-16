@@ -5,10 +5,7 @@ import com.library.govLibrary.model.Author;
 import com.library.govLibrary.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,5 +42,10 @@ public class AuthorController {
     @GetMapping("/author/{id}")
     public AuthorDto getAuthor(@PathVariable long id) {
         return AuthorDto.mapToDto(authorService.getAuthor(id));
+    }
+
+    @PostMapping("/author")
+    public Author addAuthor(@RequestBody Author author){
+        return authorService.addAuthor(author);
     }
 }

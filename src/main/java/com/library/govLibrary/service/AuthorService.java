@@ -47,4 +47,8 @@ public class AuthorService {
     private List<Book> extractBooks(List<Book> bookList, long id) {
         return bookList.stream().filter(book -> book.getAuthorId() == id).collect(Collectors.toList());
     }
+
+    public Author addAuthor(Author author) {
+        return authorRepository.save(author);
+    }
 }
