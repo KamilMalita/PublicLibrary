@@ -30,4 +30,8 @@ public class BookService {
     public List<Book> getBooksForAuthor(long id) {
         return bookRepository.findAllBooksForAuthor(id);
     }
+
+    public Book addBook(Book book) {
+        return bookRepository.save(book);
+    }
 }

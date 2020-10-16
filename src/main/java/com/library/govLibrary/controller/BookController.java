@@ -3,10 +3,7 @@ package com.library.govLibrary.controller;
 import com.library.govLibrary.model.Book;
 import com.library.govLibrary.service.BookService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +31,10 @@ public class BookController {
     @GetMapping("/books/{title}")
     public List<Book> getBooksContainTitle(@PathVariable String title) {
         return bookService.getBooksContainTitle(title);
+    }
+
+    @PostMapping("/book")
+    public Book addBook(@RequestBody Book book){
+        return bookService.addBook(book);
     }
 }
