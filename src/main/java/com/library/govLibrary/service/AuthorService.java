@@ -51,4 +51,8 @@ public class AuthorService {
     public Author addAuthor(Author author) {
         return authorRepository.save(author);
     }
+
+    public Author updateAuthor(Author author) {
+        return authorRepository.save(author);
+    }
 }
