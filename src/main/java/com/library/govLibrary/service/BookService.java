@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -48,5 +47,9 @@ public class BookService {
         if(book.getReleaseDate() != null)
             bookEditable.setReleaseDate(book.getReleaseDate());
         return bookRepository.save(book);
+    }
+
+    public void deleteBook(long id) {
+        bookRepository.deleteById(id);
     }
 }
