@@ -53,6 +53,15 @@ public class AuthorService {
     }
 
     public Author updateAuthor(Author author) {
+        Author authorEditable = authorRepository.findById(author.getId()).orElseThrow();
+        if(author.getDescription() != null)
+            authorEditable.setDescription(author.getDescription());
+        if(author.getBornDate() != null)
+            authorEditable.setBornDate(author.getBornDate());
+        if(author.getName() != null)
+            authorEditable.setName(author.getName());
+        if(author.getSurname() != null)
+            authorEditable.setSurname(author.getSurname());
         return authorRepository.save(author);
     }
 }
