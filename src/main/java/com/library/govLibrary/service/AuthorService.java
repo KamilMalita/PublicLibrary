@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -65,5 +66,10 @@ public class AuthorService {
         if(author.getSurname() != null)
             authorEditable.setSurname(author.getSurname());
         return authorEditable;
+    }
+
+
+    public void deleteAuthor(long id) {
+        authorRepository.deleteById(id);
     }
 }

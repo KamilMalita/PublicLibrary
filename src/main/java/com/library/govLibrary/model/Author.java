@@ -19,7 +19,7 @@ public class Author {
     private String description;
     private LocalDateTime bornDate;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "authorId", updatable = false, insertable = false)
     private List<Book> book;
 }
