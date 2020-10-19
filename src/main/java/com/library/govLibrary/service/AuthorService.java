@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -52,6 +53,7 @@ public class AuthorService {
         return authorRepository.save(author);
     }
 
+    @Transactional
     public Author updateAuthor(Author author) {
         Author authorEditable = authorRepository.findById(author.getId()).orElseThrow();
         if(author.getDescription() != null)
@@ -62,6 +64,6 @@ public class AuthorService {
             authorEditable.setName(author.getName());
         if(author.getSurname() != null)
             authorEditable.setSurname(author.getSurname());
-        return authorRepository.save(author);
+        return authorEditable;
     }
 }
