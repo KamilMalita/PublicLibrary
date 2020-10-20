@@ -15,4 +15,10 @@ public class BookAdvice {
         return ex.getMessage();
     }
 
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(BookAlreadyExistException.class)
+    public String bookAlreadyExistHandler(BookAlreadyExistException ex) {
+        return ex.getMessage();
+    }
 }
