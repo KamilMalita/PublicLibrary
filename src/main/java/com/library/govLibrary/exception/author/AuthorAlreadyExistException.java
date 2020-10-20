@@ -1,4 +1,4 @@
-package com.library.govLibrary.exception;
+package com.library.govLibrary.exception.author;
 
 public class AuthorAlreadyExistException extends RuntimeException {
     public AuthorAlreadyExistException(long id) {

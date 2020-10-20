@@ -1,7 +1,7 @@
 package com.library.govLibrary.service;
 
-import com.library.govLibrary.exception.AuthorAlreadyExistException;
-import com.library.govLibrary.exception.AuthorNotFoundException;
+import com.library.govLibrary.exception.author.AuthorAlreadyExistException;
+import com.library.govLibrary.exception.author.AuthorNotFoundException;
 import com.library.govLibrary.model.Author;
 import com.library.govLibrary.model.Book;
 import com.library.govLibrary.repository.AuthorRepository;
@@ -10,11 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service

@@ -1,4 +1,4 @@
-package com.library.govLibrary.exception;
+package com.library.govLibrary.exception.author;
 
 public class AuthorNotFoundException extends RuntimeException {
     public AuthorNotFoundException(long id) {

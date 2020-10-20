@@ -1,4 +1,4 @@
-package com.library.govLibrary.exception;
+package com.library.govLibrary.exception.author;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,7 +18,7 @@ public class AuthorAdvice {
     @ResponseBody
     @ExceptionHandler(AuthorAlreadyExistException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public String authorAlreadyExist(AuthorAlreadyExistException ex){
+    public String authorAlreadyExistHandler(AuthorAlreadyExistException ex){
         return ex.getMessage();
     }
 }
