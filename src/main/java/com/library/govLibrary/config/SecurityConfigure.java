@@ -1,5 +1,8 @@
 package com.library.govLibrary.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.library.govLibrary.config.resultHandler.AuthenticationFailureHandler;
+import com.library.govLibrary.config.resultHandler.AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,9 @@ import javax.sql.DataSource;
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
+    private final ObjectMapper objectMapper;
+    private final AuthenticationFailureHandler failureHandler;
+    private final AuthenticationSuccessHandler succesHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -44,9 +50,16 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers().frameOptions().disable()
                 .and()
-                .formLogin().permitAll()
-                .and()
+                .addFilter(jsonAuthenticationFilter())
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+    }
+
+    public JsonAuthenticationFilter jsonAuthenticationFilter() throws Exception {
+        JsonAuthenticationFilter filter = new JsonAuthenticationFilter(objectMapper);
+        filter.setAuthenticationSuccessHandler(succesHandler);
+        filter.setAuthenticationFailureHandler(failureHandler);
+        filter.setAuthenticationManager(super.authenticationManager());
+        return filter;
     }
 }
