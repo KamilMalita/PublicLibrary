@@ -3,25 +3,41 @@ package com.library.govLibrary.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.library.govLibrary.config.resultHandler.AuthenticationFailureHandler;
 import com.library.govLibrary.config.resultHandler.AuthenticationSuccessHandler;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 import javax.sql.DataSource;
 
 @Configuration
-@RequiredArgsConstructor
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
     private final ObjectMapper objectMapper;
     private final AuthenticationFailureHandler failureHandler;
     private final AuthenticationSuccessHandler succesHandler;
+    private final String secret;
+
+    public SecurityConfigure(DataSource dataSource, ObjectMapper objectMapper,
+                             AuthenticationFailureHandler failureHandler,
+                             AuthenticationSuccessHandler succesHandler,
+                             @Value("${jwt.secret}") String secret) {
+        this.dataSource = dataSource;
+        this.objectMapper = objectMapper;
+        this.failureHandler = failureHandler;
+        this.succesHandler = succesHandler;
+        this.secret = secret;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -48,11 +64,19 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .headers().frameOptions().disable()
                 .and()
                 .addFilter(jsonAuthenticationFilter())
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userDetailsManager(), secret))
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+    }
+
+    @Bean
+    public UserDetailsManager userDetailsManager() {
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     public JsonAuthenticationFilter jsonAuthenticationFilter() throws Exception {

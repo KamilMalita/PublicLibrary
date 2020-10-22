@@ -33,6 +33,6 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
                 .sign(Algorithm.HMAC512(secret));
-        response.addHeader("ApplicationToken", "Bearer " + tokenValue);
+        response.addHeader("ApplicationToken", "Token " + tokenValue);
     }
 }
