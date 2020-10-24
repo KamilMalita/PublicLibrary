@@ -3,8 +3,12 @@ package com.library.govLibrary.controller;
 import com.library.govLibrary.controller.dto.AuthorDto;
 import com.library.govLibrary.model.Author;
 import com.library.govLibrary.service.AuthorService;
+import com.library.govLibrary.validator.AuthorValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,4 +62,15 @@ public class AuthorController {
     public void deleteAuthor(@PathVariable long id){
         authorService.deleteAuthor(id);
     }
+
+    @InitBinder("author")
+    protected void initBinder(WebDataBinder binder){
+        binder.addValidators(new AuthorValidator());
+    }
+
+    @PostMapping("/authorrr")
+    public ResponseEntity<Object> addAuthorValidate(@RequestBody @Validated Author author){
+        return ResponseEntity.ok(authorService.addAuthor(author));
+    }
+
 }
