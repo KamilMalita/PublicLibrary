@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -49,8 +50,8 @@ public class AuthorController {
     }
 
     @PostMapping("/author")
-    public Author addAuthor(@RequestBody Author author){
-        return authorService.addAuthor(author);
+    public ResponseEntity<Object> addAuthor(@RequestBody @Valid Author author){
+        return ResponseEntity.ok(authorService.addAuthor(author));
     }
 
     @PutMapping("/author")
