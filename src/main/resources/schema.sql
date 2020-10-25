@@ -41,7 +41,7 @@ CREATE TABLE USERS
 
 CREATE TABLE AUTHORITIES
 (
-    username  VARCHAR(50) PRIMARY KEY,
+    username VARCHAR(50) PRIMARY KEY ,
     authority VARCHAR(50)
 );
 
@@ -49,6 +49,10 @@ ALTER TABLE LIBRARY
     ADD CONSTRAINT library_address_id
         FOREIGN KEY (address_id) REFERENCES ADDRESS (id);
 
+ALTER TABLE AUTHORITIES
+    ADD CONSTRAINT username
+        FOREIGN KEY (username) REFERENCES USERS (username);
+
 ALTER TABLE BOOK
     ADD CONSTRAINT book_author_id
-        FOREIGN KEY (author_id) REFERENCES AUTHOR (id)
+        FOREIGN KEY (author_id) REFERENCES AUTHOR (id);
