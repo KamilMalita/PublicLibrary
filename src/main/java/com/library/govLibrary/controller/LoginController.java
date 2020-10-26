@@ -18,8 +18,8 @@ public class LoginController {
     public void login(@RequestBody Credentials credentials) {
     }
 
-    @GetMapping("/register")
-    public Users register() {
-        return userService.createUser();
+    @PostMapping("/register")
+    public Users register(@RequestBody Users user) {
+        return userService.createUser(user);
     }
 }
