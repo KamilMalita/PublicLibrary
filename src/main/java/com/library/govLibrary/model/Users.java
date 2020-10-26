@@ -10,11 +10,11 @@ import javax.persistence.*;
 @Entity
 public class Users {
     @Id
-    String username;
-    String password;
-    boolean enabled;
+    private String username;
+    private String password;
+    private boolean enabled;
 
     @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "username", updatable = false, insertable = false)
+    @JoinColumn(name = "username")
     private Authorities authority;
 }
