@@ -44,7 +44,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .withUser("test")
                 .password("{bcrypt}" + new BCryptPasswordEncoder().encode("test"))
-                .roles("USER");
+                .roles("ADMIN");
         auth.jdbcAuthentication().dataSource(dataSource)
                 .withUser("admin")
                 .password("{bcrypt}" + new BCryptPasswordEncoder().encode("admin"))
@@ -61,6 +61,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/register/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
