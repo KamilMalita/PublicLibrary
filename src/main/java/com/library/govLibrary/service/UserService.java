@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,11 +17,18 @@ public class UserService {
     private final AuthoritiesRepository authoritiesRepository;
 
     @Transactional
-    public Users createUser(Users user){
-        Authorities authorities = user.getAuthority();
+    public String createUser(Users user) {
         user.setAuthority(null);
-        Users saved_user = userRepository.save(user);
+        Optional<Users> optionalUser = userRepository.findById(user.getUsername());
+        if (optionalUser.isPresent()) throw new NullPointerException();
+
+        userRepository.save(user);
+
+        Authorities authorities = new Authorities();
+        authorities.setUsername(user.getUsername());
+        authorities.setAuthority("ROLE_USER");
         authoritiesRepository.save(authorities);
-        return saved_user;
+
+        return "User: " + user.getUsername() + " has been created";
     }
 }
