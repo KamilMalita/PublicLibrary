@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Users {
+public class User {
     @Id
     private String username;
     private String password;

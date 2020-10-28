@@ -1,9 +1,9 @@
 package com.library.govLibrary.repository;
 
-import com.library.govLibrary.model.Users;
+import com.library.govLibrary.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, String> {
+public interface UserRepository extends JpaRepository<User, String> {
 }

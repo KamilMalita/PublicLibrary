@@ -2,7 +2,7 @@ package com.library.govLibrary.service;
 
 import com.library.govLibrary.exception.user.UserAlreadyExistException;
 import com.library.govLibrary.model.Authorities;
-import com.library.govLibrary.model.Users;
+import com.library.govLibrary.model.User;
 import com.library.govLibrary.repository.AuthoritiesRepository;
 import com.library.govLibrary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +18,9 @@ public class UserService {
     private final AuthoritiesRepository authoritiesRepository;
 
     @Transactional
-    public String createUser(Users user) {
+    public String createUser(User user) {
         user.setAuthority(null);
-        Optional<Users> optionalUser = userRepository.findById(user.getUsername());
+        Optional<User> optionalUser = userRepository.findById(user.getUsername());
         if (optionalUser.isPresent()) throw new UserAlreadyExistException(user.getUsername());
 
         userRepository.save(user);
