@@ -1,5 +1,6 @@
 package com.library.govLibrary.service;
 
+import com.library.govLibrary.exception.user.UserAlreadyExistException;
 import com.library.govLibrary.model.Authorities;
 import com.library.govLibrary.model.Users;
 import com.library.govLibrary.repository.AuthoritiesRepository;
@@ -20,7 +21,7 @@ public class UserService {
     public String createUser(Users user) {
         user.setAuthority(null);
         Optional<Users> optionalUser = userRepository.findById(user.getUsername());
-        if (optionalUser.isPresent()) throw new NullPointerException();
+        if (optionalUser.isPresent()) throw new UserAlreadyExistException(user.getUsername());
 
         userRepository.save(user);
 
