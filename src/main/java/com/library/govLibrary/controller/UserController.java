@@ -1,7 +1,7 @@
 package com.library.govLibrary.controller;
 
 import com.library.govLibrary.model.Credentials;
-import com.library.govLibrary.model.User;
+import com.library.govLibrary.model.Users;
 import com.library.govLibrary.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
+    public String register(@RequestBody Users user) {
         return userService.createUser(user);
     }
 }
