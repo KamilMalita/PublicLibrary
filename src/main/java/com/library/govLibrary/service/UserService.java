@@ -2,10 +2,11 @@ package com.library.govLibrary.service;
 
 import com.library.govLibrary.exception.user.UserAlreadyExistException;
 import com.library.govLibrary.model.Authorities;
-import com.library.govLibrary.model.User;
+import com.library.govLibrary.model.Users;
 import com.library.govLibrary.repository.AuthoritiesRepository;
 import com.library.govLibrary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,10 +19,12 @@ public class UserService {
     private final AuthoritiesRepository authoritiesRepository;
 
     @Transactional
-    public String createUser(User user) {
+    public String createUser(Users user) {
         user.setAuthority(null);
-        Optional<User> optionalUser = userRepository.findById(user.getUsername());
+        Optional<Users> optionalUser = userRepository.findById(user.getUsername());
         if (optionalUser.isPresent()) throw new UserAlreadyExistException(user.getUsername());
+
+        user.setPassword("{bcrypt}" + new BCryptPasswordEncoder().encode(user.getPassword()));
 
         userRepository.save(user);
 
