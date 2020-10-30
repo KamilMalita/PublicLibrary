@@ -14,4 +14,11 @@ public class UserAdvice {
     public String userAlreadyExistHandler(UserAlreadyExistException ex) {
         return ex.getMessage();
     }
+
+    @ResponseBody
+    @ExceptionHandler(UserBadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String userBadRequestHandler(UserBadRequestException ex) {
+        return ex.getMessage();
+    }
 }
