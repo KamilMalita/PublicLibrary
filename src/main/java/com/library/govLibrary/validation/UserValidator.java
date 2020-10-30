@@ -6,11 +6,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-@Component("beforeCreateUserValidator")
 public class UserValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return Users.class.equals(aClass);
+        return Users.class.isAssignableFrom(aClass);
     }
 
     @Override
