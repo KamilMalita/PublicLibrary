@@ -1,5 +1,6 @@
 package com.library.govLibrary.validation;
 
+import com.library.govLibrary.model.Author;
 import com.library.govLibrary.model.Users;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -17,6 +18,6 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "username", "username.empty");
         Users user = (Users) o;
         if (user.getUsername().equals(""))
-            errors.rejectValue("username", "Is empty");
+            errors.reject("username");
     }
 }

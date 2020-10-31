@@ -25,7 +25,7 @@ public class UserController {
     public void login(@RequestBody Credentials credentials) {
     }
 
-    @InitBinder("register")
+    @InitBinder("user")
     protected void initBinder(WebDataBinder binder){
         binder.addValidators(new UserValidator());
     }
